@@ -1,6 +1,6 @@
 {
   "name": "Aboki Developer Documentation",
- "favicon": "/favicon.svg",
+  "favicon": "/favicon.svg",
   "colors": {
     "primary": "#9333ea",
     "light": "#3b82f6",
@@ -13,11 +13,11 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart"]
+      "pages": ["introduction", "for-users"]
     },
     {
       "group": "For Developers",
-      "pages": ["developers/embed-swaps"]
+      "pages": ["quickstart", "developers/embed-swaps"]
     },
     {
       "group": "API Reference",
