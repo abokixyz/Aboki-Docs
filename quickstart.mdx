@@ -35,3 +35,29 @@ By the end of this guide, your users will be able to:
 npm install @aboki/sdk
 # or
 yarn add @aboki/sdk
+:
+
+## Step 3: Initialize Aboki
+
+import { Aboki } from '@aboki/sdk';
+
+const aboki = new Aboki({
+  publicKey: 'your_public_key_here',
+  environment: 'sandbox' // Use 'production' when ready
+});
+
+## Step 4: Create Your First Swap
+
+
+// Simple swap widget
+const swapWidget = aboki.createSwapWidget({
+  container: '#aboki-swap',
+  onSuccess: (transaction) => {
+    console.log('Swap successful!', transaction);
+  },
+  onError: (error) => {
+    console.log('Swap failed:', error);
+  }
+});
+
+<div id="aboki-swap"></div>
