@@ -1,0 +1,26 @@
+{
+  "name": "Aboki Developer Documentation",
+  "colors": {
+    "primary": "#9333ea",
+    "light": "#3b82f6",
+    "dark": "#9333ea"
+  },
+  "topbarCtaButton": {
+    "name": "Try Aboki",
+    "url": "http://www.aboki.xyz"
+  },
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": ["introduction", "quickstart"]
+    },
+    {
+      "group": "For Developers",
+      "pages": ["developers/embed-swaps"]
+    },
+    {
+      "group": "API Reference",
+      "pages": ["api-reference/swap-api"]
+    }
+  ]
+}
