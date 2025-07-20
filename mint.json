@@ -1,5 +1,6 @@
 {
   "name": "Aboki Developer Documentation",
+ "favicon": "/favicon.svg",
   "colors": {
     "primary": "#9333ea",
     "light": "#3b82f6",
