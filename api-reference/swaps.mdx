@@ -1,5 +1,3 @@
-
-```mdx
 ---
 title: "Create Swap"
 api: "POST https://api.aboki.xyz/v1/swaps"
@@ -11,12 +9,6 @@ Create a new swap between Nigerian Naira (NGN) and USDC.
 <ParamField header="Authorization" type="string" required>
   Bearer token for API authentication
 </ParamField>
-
-<ParamField header="Content-Type" type="string" required>
-  Must be `application/json`
-</ParamField>
-
-## Body Parameters
 
 <ParamField body="fromCurrency" type="string" required>
   Source currency. Must be either `NGN` or `USDC`
@@ -38,97 +30,19 @@ Create a new swap between Nigerian Naira (NGN) and USDC.
   Nigerian bank account number (required when toCurrency is NGN)
 </ParamField>
 
-<ParamField body="callbackUrl" type="string">
-  Webhook URL to receive status updates
-</ParamField>
-
 ## Response
 
 <ResponseField name="data" type="object">
-  <Expandable title="Swap Details">
-    <ResponseField name="swapId" type="string">
-      Unique identifier for this swap transaction
-    </ResponseField>
-    <ResponseField name="status" type="string">
-      Current status: `pending`, `processing`, `completed`, `failed`
-    </ResponseField>
-    <ResponseField name="fromCurrency" type="string">
-      Source currency (NGN or USDC)
-    </ResponseField>
-    <ResponseField name="toCurrency" type="string">
-      Target currency (USDC or NGN)
-    </ResponseField>
-    <ResponseField name="fromAmount" type="number">
-      Amount being swapped from
-    </ResponseField>
-    <ResponseField name="toAmount" type="number">
-      Amount being swapped to
-    </ResponseField>
-    <ResponseField name="exchangeRate" type="number">
-      Applied exchange rate
-    </ResponseField>
-    <ResponseField name="fees" type="object">
-      <Expandable title="Fee Structure">
-        <ResponseField name="abokiFee" type="number">
-          Aboki platform fee
-        </ResponseField>
-        <ResponseField name="networkFee" type="number">
-          Blockchain network fee
-        </ResponseField>
-      </Expandable>
-    </ResponseField>
-    <ResponseField name="estimatedCompletion" type="string">
-      ISO timestamp of estimated completion
-    </ResponseField>
-    <ResponseField name="createdAt" type="string">
-      ISO timestamp of swap creation
-    </ResponseField>
-  </Expandable>
+  <ResponseField name="swapId" type="string">
+    Unique identifier for this swap transaction
+  </ResponseField>
+  <ResponseField name="status" type="string">
+    Current status: pending, processing, completed, failed
+  </ResponseField>
+  <ResponseField name="fromAmount" type="number">
+    Amount being swapped from
+  </ResponseField>
+  <ResponseField name="toAmount" type="number">
+    Amount being swapped to
+  </ResponseField>
 </ResponseField>
-
-<ResponseField name="message" type="string">
-  Human-readable success message
-</ResponseField>
-
-<ResponseField name="statusCode" type="number">
-  HTTP status code
-</ResponseField>
-
-<RequestExample>
-```bash NGN to USDC
-curl --request POST \
-  --url https://api.aboki.xyz/v1/swaps \
-  --header 'Authorization: Bearer abk_test_1234567890abcdef' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "fromCurrency": "NGN",
-    "toCurrency": "USDC",
-    "amount": 50000,
-    "userWallet": "0x742d35Cc6e7f6a42E2c6f4d0D0e8f6B1A4B5C6D7",
-    "bankAccount": "1234567890"
-  }'
-
-
-
-curl --request POST \
-  --url https://api.aboki.xyz/v1/swaps \
-  --header 'Authorization: Bearer abk_test_1234567890abcdef' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "fromCurrency": "USDC",
-    "toCurrency": "NGN",
-    "amount": 100,
-    "userWallet": "0x742d35Cc6e7f6a42E2c6f4d0D0e8f6B1A4B5C6D7",
-    "bankAccount": "1234567890"
-  }'
-
-
-
-{
-  "error": {
-    "code": "INSUFFICIENT_BALANCE",
-    "message": "Insufficient balance in source account",
-    "details": "Required: ₦50,000, Available: ₦35,000"
-  },
-  "statusCode": 400
-}
