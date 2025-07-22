@@ -1,1 +1,190 @@
+# Create Swap
 
+Create a new fiat ↔ crypto swap transaction.
+
+**POST** `/v1/swaps`
+
+## Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `fromCurrency` | string | Yes | Source currency (`NGN` or `USDC`) |
+| `toCurrency` | string | Yes | Target currency (`USDC` or `NGN`) |
+| `amount` | number | Yes | Amount to swap |
+| `userWallet` | string | Yes | User's wallet address |
+| `bankAccount` | string | No | Bank account (required for NGN) |
+
+## Request Example
+
+```bash
+curl --request POST \
+  --url https://api.aboki.xyz/v1/swaps \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer <your-api-key>' \
+  --data '{
+    "fromCurrency": "NGN",
+    "toCurrency": "USDC",
+    "amount": 50000,
+    "userWallet": "0x742d35Cc6e7f6a42E2c6f4d0D0e8f6B1A4B5C6D7",
+    "bankAccount": "1234567890"
+  }'
+```
+
+## Response
+
+### 200 Success
+
+```json
+{
+  "data": {
+    "swapId": "swap_abc123def456",
+    "status": "pending",
+    "fromCurrency": "NGN",
+    "toCurrency": "USDC", 
+    "fromAmount": 50000,
+    "toAmount": 64.52,
+    "exchangeRate": 775.5,
+    "fees": {
+      "abokiFee": 250,
+      "networkFee": 1.2
+    },
+    "estimatedCompletion": "2025-07-22T10:05:30.000Z",
+    "createdAt": "2025-07-22T10:02:15.000Z"
+  },
+  "message": "Swap created successfully",
+  "statusCode": 200
+}
+```
+
+### 400 Error
+
+```json
+{
+  "error": {
+    "code": "INSUFFICIENT_BALANCE",
+    "message": "Insufficient balance in source account",
+    "details": "Required: ₦50,000, Available: ₦35,000"
+  },
+  "statusCode": 400
+}
+```
+
+---
+
+# Get Swap Status
+
+Retrieve the current status of a swap transaction.
+
+**GET** `/v1/swaps/{swapId}`
+
+## Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `swapId` | string | Yes | The unique swap identifier |
+
+## Request Example
+
+```bash
+curl --request GET \
+  --url https://api.aboki.xyz/v1/swaps/swap_abc123def456 \
+  --header 'Authorization: Bearer <your-api-key>'
+```
+
+## Response
+
+### 200 Success
+
+```json
+{
+  "data": {
+    "swapId": "swap_abc123def456",
+    "status": "completed",
+    "fromCurrency": "NGN",
+    "toCurrency": "USDC",
+    "fromAmount": 50000,
+    "toAmount": 64.52,
+    "actualRate": 775.5,
+    "transactionHash": "0x1234567890abcdef...",
+    "completedAt": "2025-07-22T10:03:45.000Z",
+    "timeline": [
+      {
+        "status": "pending",
+        "timestamp": "2025-07-22T10:02:15.000Z"
+      },
+      {
+        "status": "processing", 
+        "timestamp": "2025-07-22T10:02:30.000Z"
+      },
+      {
+        "status": "completed",
+        "timestamp": "2025-07-22T10:03:45.000Z"
+      }
+    ]
+  },
+  "statusCode": 200
+}
+```
+
+## Swap Statuses
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Swap request received, waiting for processing |
+| `processing` | Transaction is being executed |
+| `completed` | Swap completed successfully |
+| `failed` | Swap failed, funds returned |
+| `cancelled` | Swap cancelled by user |
+
+---
+
+# Get Exchange Rates
+
+Get current exchange rates for supported currency pairs.
+
+**GET** `/v1/rates`
+
+## Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `from` | string | No | Filter by source currency |
+| `to` | string | No | Filter by target currency |
+
+## Request Example
+
+```bash
+curl --request GET \
+  --url 'https://api.aboki.xyz/v1/rates?from=NGN&to=USDC' \
+  --header 'Authorization: Bearer <your-api-key>'
+```
+
+## Response
+
+### 200 Success
+
+```json
+{
+  "data": {
+    "rates": [
+      {
+        "from": "NGN",
+        "to": "USDC", 
+        "rate": 775.50,
+        "buyRate": 773.25,
+        "sellRate": 777.75,
+        "lastUpdated": "2025-07-22T10:00:00.000Z"
+      },
+      {
+        "from": "USDC",
+        "to": "NGN",
+        "rate": 0.001289,
+        "buyRate": 0.001285,
+        "sellRate": 0.001293, 
+        "lastUpdated": "2025-07-22T10:00:00.000Z"
+      }
+    ]
+  },
+  "statusCode": 200
+}
+```
