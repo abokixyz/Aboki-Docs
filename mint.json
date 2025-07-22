@@ -23,9 +23,9 @@
       "group": "API Reference",
       "pages": [
         "api-reference/authentication",
-        "api-reference/swaps",
-        "api-reference/rates",
-        "api-reference/transactions",
+        "api-reference/create-swap",
+        "api-reference/get-swap",
+        "api-reference/get-rates",
         "api-reference/webhooks"
       ]
     }
