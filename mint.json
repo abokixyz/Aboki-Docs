@@ -21,7 +21,13 @@
     },
     {
       "group": "API Reference",
-      "pages": ["api-reference/swap-api"]
+      "pages": [
+        "api-reference/authentication",
+        "api-reference/swaps",
+        "api-reference/rates",
+        "api-reference/transactions",
+        "api-reference/webhooks"
+      ]
     }
   ]
 }
