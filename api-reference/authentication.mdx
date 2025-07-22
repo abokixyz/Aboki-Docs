@@ -1,1 +1,28 @@
+---
+title: "Authentication"
+description: "Authenticate your API requests using Bearer tokens"
+---
 
+# Authentication
+
+All API requests require authentication using Bearer tokens. You can get your API keys from your Aboki dashboard.
+
+## API Keys
+
+You'll need two types of keys:
+
+- **Public Key**: For client-side operations (safe to expose)
+- **Secret Key**: For server-side operations (keep secure!)
+
+## Headers
+
+Include your API key in the Authorization header:
+
+
+
+## Example Request
+
+```bash
+curl --request GET \
+  --url https://api.aboki.xyz/v1/rates \
+  --header 'Authorization: Bearer abk_test_1234567890abcdef'
