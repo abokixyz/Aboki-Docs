@@ -1,0 +1,171 @@
+---
+title: "Add Custom Tokens"
+api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add"
+description: "Add new custom tokens that users can trade to on your platform (in addition to default tokens)"
+---
+
+Add custom destination tokens that your users can receive when using your platform. This is in addition to the default tokens (USDC, USDT, ETH, SOL) that are automatically provided.
+
+<ParamField header="Authorization" type="string" required>
+  Bearer JWT token from business login. Format: `Bearer <your_jwt_token>`
+</ParamField>
+
+<ParamField header="Content-Type" type="string" required>
+  Must be `application/json`
+</ParamField>
+
+## Body Parameters
+
+<ParamField body="network" type="string" required>
+  Blockchain network. Must be one of: `base`, `solana`, `ethereum`
+</ParamField>
+
+<ParamField body="tokens" type="array" required>
+  Array of token objects to add
+  <Expandable title="Token Object Structure">
+    <ParamField body="address" type="string" required>
+      Token contract address (e.g., `0x833589fcd6edb6e08f4c7c32d4f71b54bda02913`)
+    </ParamField>
+    <ParamField body="symbol" type="string" required>
+      Token symbol (e.g., `CUSTOM`, `MYTOKEN`)
+    </ParamField>
+    <ParamField body="name" type="string" required>
+      Full token name (e.g., `Custom Token`, `My Custom Token`)
+    </ParamField>
+    <ParamField body="decimals" type="number" required>
+      Token decimals (typically 6, 8, or 18)
+    </ParamField>
+    <ParamField body="feePercentage" type="number" required>
+      Fee percentage you want to charge (e.g., 1.5 for 1.5%)
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the operation was successful
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Human-readable success message
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Contains the added token information and business details
+</ResponseField>
+
+<RequestExample>
+```bash Base Network USDC
+curl -X 'POST' \
+  'https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add' \
+  -H 'Authorization: Bearer <your_jwt_token>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "network": "base",
+    "tokens": [
+      {
+        "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "symbol": "USDC",
+        "name": "USD Coin",
+        "decimals": 6,
+        "feePercentage": 1.0
+      }
+    ]
+  }'
+
+
+curl -X 'POST' \
+  'https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add' \
+  -H 'Authorization: Bearer <your_jwt_token>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "network": "solana",
+    "tokens": [
+      {
+        "address": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+        "symbol": "CUSTOM",
+        "name": "Custom Token",
+        "decimals": 18,
+        "feePercentage": 2.5
+      }
+    ]
+  }'
+
+
+curl -X 'POST' \
+  'https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add' \
+  -H 'Authorization: Bearer <your_jwt_token>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "network": "ethereum",
+    "tokens": [
+      {
+        "address": "0xA0b86a33E6441E8F4c6ba5D8A1B56E49A3B7d8F2",
+        "symbol": "TOKEN1",
+        "name": "First Token",
+        "decimals": 18,
+        "feePercentage": 1.5
+      },
+      {
+        "address": "0xB1c97a44F7552E9F5d7c9B68E50A4E8G5F8E9D3A",
+        "symbol": "TOKEN2", 
+        "name": "Second Token",
+        "decimals": 8,
+        "feePercentage": 2.0
+      }
+    ]
+  }'
+
+</RequestExample>
+<ResponseExample>
+```json Success Response
+{
+  "success": true,
+  "message": "Custom tokens added successfully",
+  "data": {
+    "tokensAdded": 1,
+    "network": "base",
+    "businessId": "business_123abc"
+  }
+}
+```
+
+
+{
+  "success": false,
+  "message": "Access token required"
+}
+
+{
+  "success": false,
+  "message": "Business not found",
+  "error": "No business associated with this account"
+}
+
+
+</ResponseExample>
+Important Notes
+<Note>
+You must have a valid JWT token from creating and logging into your business account first.
+</Note>
+<Warning>
+Make sure to verify the token contract address is correct before adding. Invalid addresses will be rejected.
+</Warning>
+<Tip>
+You can add multiple tokens in a single request by including them in the tokens array.
+</Tip>
+Next Steps
+
+View Supported Tokens - See all your configured tokens
+Update Token Fees - Modify fees for existing tokens
+Business Setup Guide - Complete business setup process
+
+
+
+
+
+
+
+
+
