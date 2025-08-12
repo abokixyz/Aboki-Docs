@@ -29,6 +29,7 @@
       "pages": [
         "api-reference/authentication",
         "api-reference/business-setup",
+        "api-reference/add-tokens",
         "api-reference/offramp-quote",
         "api-reference/bank-verification", 
         "api-reference/create-offramp",
