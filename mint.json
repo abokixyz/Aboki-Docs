@@ -16,24 +16,10 @@
       "pages": ["introduction", "for-users"]
     },
     {
-      "group": "For Businesses",
-      "pages": [
-        "business/quickstart",
-        "business/supported-tokens",
-        "business/offramp-guide",
-        "business/onramp-guide"
-      ]
-    },
-    {
       "group": "API Reference",
       "pages": [
         "api-reference/authentication",
-        "api-reference/add-tokens",
-        "api-reference/business-setup",
-        "api-reference/offramp-quote",
-        "api-reference/bank-verification", 
-        "api-reference/create-offramp",
-        "api-reference/webhooks"
+        "api-reference/add-tokens"
       ]
     }
   ]
