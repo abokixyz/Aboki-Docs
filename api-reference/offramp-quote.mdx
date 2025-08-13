@@ -1,0 +1,79 @@
+---
+title: "Get Offramp Quote"
+api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/quote"
+description: "Get a quote for converting tokens to Nigerian Naira (NGN)"
+---
+
+# Get Offramp Quote
+
+Get a real-time quote for converting crypto tokens to Nigerian Naira. This is the first step in the offramp process.
+
+## Authentication
+
+You need a Bearer token from your business login:
+
+```bash
+Authorization: Bearer <your_jwt_token>
+
+
+Request Body
+
+{
+  "tokenSymbol": "USDC",
+  "network": "base",
+  "tokenAmount": 100,
+  "customerEmail": "customer@example.com"
+}
+
+Parameters
+
+tokenSymbol: Token to convert (e.g., "USDC", "USDT", "ETH")
+network: Blockchain network ("base", "solana", "ethereum")
+tokenAmount: Amount of tokens to convert
+customerEmail: Customer's email address
+
+Example Request
+
+curl -X 'POST' \
+  'https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/quote' \
+  -H 'Authorization: Bearer <your_jwt_token>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "tokenSymbol": "USDC",
+    "network": "base", 
+    "tokenAmount": 100,
+    "customerEmail": "customer@example.com"
+  }'
+
+Response
+
+{
+  "success": true,
+  "data": {
+    "quoteId": "quote_abc123",
+    "tokenSymbol": "USDC",
+    "network": "base",
+    "tokenAmount": 100,
+    "ngnAmount": 77500,
+    "exchangeRate": 775.0,
+    "fees": {
+      "platformFee": 250,
+      "networkFee": 12.50
+    },
+    "expiresAt": "2025-08-12T18:45:00.000Z",
+    "estimatedDuration": "2-5 minutes"
+  },
+  "message": "Quote generated successfully"
+}
+
+Next Steps
+After getting a quote:
+
+Verify customer bank account
+Create offramp order
+
+Important Notes
+
+Quotes expire after 5 minutes
+Exchange rates update in real-time
+Minimum amount: $10 USD equivalent
