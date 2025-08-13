@@ -1,6 +1,3 @@
-
-
-```mdx
 ---
 title: "Add Custom Tokens"
 description: "Add new custom tokens to your platform"
@@ -12,9 +9,11 @@ This endpoint allows you to add custom tokens to your platform.
 
 ## Endpoint
 
-```
+
+
 POST https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add
-```
+
+
 
 ## Authentication
 
@@ -22,11 +21,14 @@ You need a Bearer token:
 
 ```bash
 Authorization: Bearer <your_jwt_token>
-```
+## Authentication
 
-## Request Body
+You need a Bearer token:
 
-```json
+```bash
+Authorization: Bearer <your_jwt_token>
+
+Request Body
 {
   "network": "base",
   "tokens": [
@@ -39,11 +41,8 @@ Authorization: Bearer <your_jwt_token>
     }
   ]
 }
-```
 
-## Example
-
-```bash
+Example
 curl -X 'POST' \
   'https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add' \
   -H 'Authorization: Bearer <your_jwt_token>' \
@@ -60,15 +59,20 @@ curl -X 'POST' \
       }
     ]
   }'
-```
 
-## Response
+Response
 
-```json
+
 {
   "success": true,
   "message": "Custom tokens added successfully"
 }
-```
-```
+
+
+
+
+
+
+
+
 
