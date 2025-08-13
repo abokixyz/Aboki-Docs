@@ -15,10 +15,7 @@ You need a Bearer token from your business login:
 ```bash
 Authorization: Bearer <your_jwt_token>
 
-
-
 Request Body
-
 
 {
   "network": "base",
@@ -33,9 +30,7 @@ Request Body
   ]
 }
 
-
 Example
-
 
 curl -X 'POST' \
   'https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add' \
@@ -54,11 +49,12 @@ curl -X 'POST' \
     ]
   }'
 
-
 Response
-
 
 {
   "success": true,
   "message": "Custom tokens added successfully"
 }
+
+
+
