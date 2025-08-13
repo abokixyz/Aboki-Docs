@@ -19,7 +19,8 @@
       "group": "API Reference",
       "pages": [
         "api-reference/authentication",
-        "api-reference/add-tokens"
+        "api-reference/add-tokens",
+        "api-reference/offramp-quote"
       ]
     }
   ]
