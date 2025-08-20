@@ -1,0 +1,160 @@
+---
+title: "Create Offramp Order"
+api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/create"
+description: "Create token-to-NGN order with automatic wallet generation"
+---
+
+# Create Offramp Order
+
+Create a new offramp order that generates a unique deposit wallet for your customer. Once they send tokens to this wallet, NGN is automatically sent to their bank account.
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token from your business login
+</ParamField>
+
+<ParamField header="Content-Type" type="string" required>
+  Must be application/json
+</ParamField>
+
+## Body Parameters
+
+### Customer Information
+
+<ParamField body="customerEmail" type="string" required>
+  Customer's email address (e.g., customer@example.com)
+</ParamField>
+
+<ParamField body="customerName" type="string" required>
+  Customer's full name (e.g., John Doe)
+</ParamField>
+
+<ParamField body="customerPhone" type="string" required>
+  Customer's phone number with country code (e.g., +2348123456789)
+</ParamField>
+
+### Transaction Details
+
+<ParamField body="tokenAmount" type="number" required>
+  Amount of tokens to convert (e.g., 100 for 100 USDC)
+</ParamField>
+
+<ParamField body="targetToken" type="string" required>
+  Token symbol: USDC, USDT, ETH, or SOL
+</ParamField>
+
+<ParamField body="targetNetwork" type="string" required>
+  Blockchain network: base, ethereum, or solana
+</ParamField>
+
+### Bank Account Details
+
+<ParamField body="recipientAccountNumber" type="string" required>
+  Nigerian bank account number (e.g., 1234567890)
+</ParamField>
+
+<ParamField body="recipientAccountName" type="string" required>
+  Account holder name (must match bank records)
+</ParamField>
+
+<ParamField body="recipientBankCode" type="string" required>
+  6-digit Nigerian bank code (e.g., 058152 for GTBank)
+</ParamField>
+
+<ParamField body="recipientBankName" type="string" required>
+  Bank name (e.g., Guaranty Trust Bank)
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="webhookUrl" type="string">
+  URL to receive order status updates
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  Additional data for your reference (customerReference, source, etc.)
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the order was created successfully
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="orderId" type="string">
+    Unique order identifier
+  </ResponseField>
+  <ResponseField name="depositInstructions" type="object">
+    <ResponseField name="walletAddress" type="string">
+      Generated wallet address for customer deposit
+    </ResponseField>
+    <ResponseField name="network" type="string">
+      Blockchain network for the deposit
+    </ResponseField>
+    <ResponseField name="exactAmount" type="number">
+      Exact token amount customer must send
+    </ResponseField>
+    <ResponseField name="expiresAt" type="string">
+      Deadline for deposit (24 hours)
+    </ResponseField>
+    <ResponseField name="instructions" type="array">
+      Step-by-step instructions for customer
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="netNgnAmount" type="number">
+    NGN amount customer will receive
+  </ResponseField>
+  <ResponseField name="bankDetails" type="object">
+    Verified bank account information
+  </ResponseField>
+  <ResponseField name="status" type="string">
+    Order status (pending_deposit)
+  </ResponseField>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "orderId": "OFF_1703234567_ABC123DEF",
+    "netNgnAmount": 162525,
+    "depositInstructions": {
+      "walletAddress": "0x742d35Cc6669C87532DD123F5b8c6B3e8e7c5B2A",
+      "network": "base",
+      "exactAmount": 100,
+      "expiresAt": "2025-08-20T22:32:55.036Z",
+      "instructions": [
+        "Send exactly 100 USDC to the address above",
+        "Network: Base",
+        "Once received, ₦162,525 will be sent to your bank account",
+        "Deposit must be completed within 24 hours"
+      ]
+    },
+    "bankDetails": {
+      "accountNumber": "1234567890",
+      "accountName": "JOHN DOE",
+      "bankName": "Guaranty Trust Bank",
+      "verified": true
+    },
+    "status": "pending_deposit"
+  }
+}
+
+Integration Flow
+Get quote first to show customer exact amounts
+Verify bank account (optional but recommended)
+Create order - generates unique deposit wallet
+Customer sends tokens to the generated wallet address
+Automatic processing - NGN sent to bank account
+Webhooks notify you of status changes
+
+Important Notes
+
+Each order generates a unique wallet address
+Customer must send the EXACT token amount specified
+Orders expire after 24 hours if no deposit received
+Bank account verification happens automatically during order creation
+
+
