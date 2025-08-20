@@ -1,28 +1,43 @@
 ---
 title: "Authentication"
-description: "Authenticate your API requests using Bearer tokens"
+description: "Get your API keys and authenticate your requests"
 ---
 
 # Authentication
 
-All API requests require authentication using Bearer tokens. You can get your API keys from your Aboki dashboard.
+All Aboki API requests require authentication using API keys from your business dashboard.
 
-## API Keys
+## Get Your API Keys
 
-You'll need two types of keys:
+1. **Visit the Dashboard**: Go to [app.aboki.xyz/dashboard](https://app.aboki.xyz/dashboard)
+2. **Create Business Account**: Register and complete business verification
+3. **Get Your Keys**: Access your API credentials from the dashboard
 
-- **Public Key**: For client-side operations (safe to expose)
-- **Secret Key**: For server-side operations (keep secure!)
+## Key Types
 
-## Headers
+You'll receive three types of keys:
 
-Include your API key in the Authorization header:
+### **Public Key** (`pk_live_...`)
+- ✅ **Use for**: API identification and all business offramp operations
+- ✅ **Safe to use**: In client-side applications
+- ✅ **Required for**: All endpoints in this documentation
 
+### **Client Key** (`ck_...`)
+- ✅ **Use for**: Client-specific operations
+- ✅ **Safe to use**: In frontend applications
 
+### **Secret Key** (`sk_live_...`)
+- ⚠️ **Keep secure**: Never expose in client-side code
+- ⚠️ **Server only**: Use only in backend applications
+- ⚠️ **Not needed**: For the offramp endpoints in this documentation
 
-## Example Request
+## For Offramp API
+
+**For all business offramp endpoints** (quote, verify-account, create-offramp), **use your Public Key**:
 
 ```bash
-curl --request GET \
-  --url https://api.aboki.xyz/v1/rates \
-  --header 'Authorization: Bearer abk_test_1234567890abcdef'
+Authorization: Bearer pk_live_your_public_key_here
+
+
+
+
