@@ -1,79 +1,90 @@
 ---
 title: "Get Offramp Quote"
 api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/quote"
-description: "Get a quote for converting tokens to Nigerian Naira (NGN)"
+description: "Get real-time quote for converting tokens to Nigerian Naira"
 ---
 
 # Get Offramp Quote
 
-Get a real-time quote for converting crypto tokens to Nigerian Naira. This is the first step in the offramp process.
+Calculate how much NGN your customer will receive for selling crypto tokens. Shows exact amounts including fees and exchange rates.
 
-## Authentication
+<ParamField header="Authorization" type="string" required>
+  Bearer token from your business login
+</ParamField>
 
-You need a Bearer token from your business login:
+<ParamField header="Content-Type" type="string" required>
+  Must be application/json
+</ParamField>
 
-```bash
-Authorization: Bearer <your_jwt_token>
+## Body Parameters
 
+<ParamField body="tokenAmount" type="number" required>
+  Amount of tokens to convert (e.g., 100 for 100 USDC)
+</ParamField>
 
-Request Body
+<ParamField body="targetToken" type="string" required>
+  Token symbol to convert: USDC, USDT, ETH, SOL
+</ParamField>
 
-{
-  "tokenSymbol": "USDC",
-  "network": "base",
-  "tokenAmount": 100,
-  "customerEmail": "customer@example.com"
-}
+<ParamField body="targetNetwork" type="string" required>
+  Blockchain network: base, ethereum, or solana
+</ParamField>
 
-Parameters
+## Response
 
-tokenSymbol: Token to convert (e.g., "USDC", "USDT", "ETH")
-network: Blockchain network ("base", "solana", "ethereum")
-tokenAmount: Amount of tokens to convert
-customerEmail: Customer's email address
+<ResponseField name="success" type="boolean">
+  Whether the quote was generated successfully
+</ResponseField>
 
-Example Request
+<ResponseField name="data" type="object">
+  <ResponseField name="tokenAmount" type="number">
+    Amount of tokens being converted
+  </ResponseField>
+  <ResponseField name="grossNgnAmount" type="number">
+    Total NGN value before fees
+  </ResponseField>
+  <ResponseField name="feeAmount" type="number">
+    Fee amount in NGN
+  </ResponseField>
+  <ResponseField name="netNgnAmount" type="number">
+    Final NGN amount customer receives
+  </ResponseField>
+  <ResponseField name="exchangeRate" type="number">
+    Current USD to NGN exchange rate
+  </ResponseField>
+  <ResponseField name="expiresAt" type="string">
+    Quote expiration time (5 minutes)
+  </ResponseField>
+  <ResponseField name="breakdown" type="object">
+    Detailed breakdown for customer display
+  </ResponseField>
+</ResponseField>
 
-curl -X 'POST' \
-  'https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/quote' \
-  -H 'Authorization: Bearer <your_jwt_token>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "tokenSymbol": "USDC",
-    "network": "base", 
-    "tokenAmount": 100,
-    "customerEmail": "customer@example.com"
-  }'
+## Example Response
 
-Response
-
+```json
 {
   "success": true,
   "data": {
-    "quoteId": "quote_abc123",
-    "tokenSymbol": "USDC",
-    "network": "base",
     "tokenAmount": 100,
-    "ngnAmount": 77500,
-    "exchangeRate": 775.0,
-    "fees": {
-      "platformFee": 250,
-      "networkFee": 12.50
+    "targetToken": "USDC",
+    "targetNetwork": "base",
+    "grossNgnAmount": 165000,
+    "feeAmount": 2475,
+    "netNgnAmount": 162525,
+    "exchangeRate": 1650,
+    "breakdown": {
+      "youSend": "100 USDC",
+      "grossValue": "₦165,000",
+      "businessFee": "₦2,475 (1.5%)",
+      "youReceive": "₦162,525"
     },
-    "expiresAt": "2025-08-12T18:45:00.000Z",
-    "estimatedDuration": "2-5 minutes"
-  },
-  "message": "Quote generated successfully"
+    "expiresAt": "2025-08-20T22:32:55.052Z"
+  }
 }
 
+
 Next Steps
-After getting a quote:
 
-Verify customer bank account
-Create offramp order
-
-Important Notes
-
-Quotes expire after 5 minutes
-Exchange rates update in real-time
-Minimum amount: $10 USD equivalent
+Optional: Verify customer bank account
+Create offramp order to generate deposit wallet
