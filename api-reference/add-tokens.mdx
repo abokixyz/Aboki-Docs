@@ -1,53 +1,65 @@
 ---
-title: "Add Custom Tokens"
+title: "Add Token Support"
 api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add"
-description: "Add new custom tokens to your platform"
+description: "Add custom tokens that your customers can receive"
 ---
 
-# Add Custom Tokens
+# Add Token Support
 
-This endpoint allows you to add custom tokens to your platform.
+Configure which tokens your customers can receive on your platform. You can add custom tokens beyond the default ones (USDC, USDT, ETH, SOL).
+
+## How It Works
+
+1. **Business adds token** → Token becomes available for customers
+2. **Set fee percentage** → You earn fees on each transaction  
+3. **Enable/disable** → Control which tokens are active
 
 ## Authentication
 
-You need a Bearer token from your business login:
+You need a JWT token from your business login:
 
-```bash
+
 Authorization: Bearer <your_jwt_token>
 
-Request Body
 
+## Request Body Example
+
+```json
 {
   "network": "base",
   "tokens": [
     {
       "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
-      "symbol": "USDC",
+      "symbol": "USDC", 
       "name": "USD Coin",
       "decimals": 6,
-      "feePercentage": 1.0
+      "feePercentage": 1.5
     }
   ]
 }
 
-Example
+Parameters
 
-curl -X 'POST' \
-  'https://aboki-b2b-eobk.onrender.com/api/v1/business/tokens/add' \
-  -H 'Authorization: Bearer <your_jwt_token>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "network": "base",
-    "tokens": [
-      {
-        "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
-        "symbol": "USDC",
-        "name": "USD Coin",
-        "decimals": 6,
-        "feePercentage": 1.0
-      }
-    ]
-  }'
+network: base, solana, or ethereum
+address: Token contract address
+symbol: Token symbol (USDC, CUSTOM, etc.)
+name: Full token name
+decimals: Token decimals (6 for USDC, 18 for most others)
+feePercentage: Your fee (1.5 = 1.5%)
+
+Popular Token Addresses
+Base Network
+
+USDC: 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
+
+Solana Network
+
+USDC: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+
+Ethereum Network
+
+USDC: 0xA0b86a33E441E8F4c6ba5D8A1B56E49A3B7d8F2
+USDT: 0xdAC17F958D2ee523a2206206994597C13D831ec7
 
 Response
 
@@ -55,6 +67,9 @@ Response
   "success": true,
   "message": "Custom tokens added successfully"
 }
+
+Next: Enable Offramp
+After adding tokens, customers can convert them to NGN using your offramp service.
 
 
 
