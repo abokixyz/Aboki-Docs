@@ -20,7 +20,9 @@
       "pages": [
         "api-reference/authentication",
         "api-reference/add-tokens",
-        "api-reference/offramp-quote"
+        "api-reference/offramp-quote",
+        "api-reference/verify-account",
+        "api-reference/create-offramp"
       ]
     }
   ]
