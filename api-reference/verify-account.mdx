@@ -1,0 +1,69 @@
+---
+title: "Verify Bank Account"
+api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/verify-account"
+description: "Verify Nigerian bank account before creating offramp order"
+---
+
+# Verify Bank Account
+
+Verify a Nigerian bank account using real-time verification via Lenco API. This ensures the account is valid before creating an offramp order.
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token from your business login
+</ParamField>
+
+<ParamField header="Content-Type" type="string" required>
+  Must be application/json
+</ParamField>
+
+## Body Parameters
+
+<ParamField body="accountNumber" type="string" required>
+  Nigerian bank account number (e.g., 1234567890)
+</ParamField>
+
+<ParamField body="bankCode" type="string" required>
+  6-digit Nigerian bank code (e.g., 058 for GTBank)
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the account was verified successfully
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="accountNumber" type="string">
+    The verified account number
+  </ResponseField>
+  <ResponseField name="accountName" type="string">
+    Account holder name from bank records
+  </ResponseField>
+  <ResponseField name="bankCode" type="string">
+    Bank code used for verification
+  </ResponseField>
+  <ResponseField name="bankName" type="string">
+    Full bank name
+  </ResponseField>
+  <ResponseField name="verified" type="boolean">
+    Verification status
+  </ResponseField>
+  <ResponseField name="verifiedAt" type="string">
+    Timestamp of verification
+  </ResponseField>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "accountNumber": "1234567890",
+    "accountName": "JOHN DOE",
+    "bankCode": "058",
+    "bankName": "Guaranty Trust Bank",
+    "verified": true,
+    "verifiedAt": "2025-08-03T12:30:45.123Z"
+  }
+}
