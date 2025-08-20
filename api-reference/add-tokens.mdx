@@ -8,69 +8,74 @@ description: "Add custom tokens that your customers can receive"
 
 Configure which tokens your customers can receive on your platform. You can add custom tokens beyond the default ones (USDC, USDT, ETH, SOL).
 
-## How It Works
+<ParamField header="Authorization" type="string" required>
+  Bearer token from your business login. Format: Bearer {your_jwt_token}
+</ParamField>
 
-1. **Business adds token** → Token becomes available for customers
-2. **Set fee percentage** → You earn fees on each transaction  
-3. **Enable/disable** → Control which tokens are active
+<ParamField header="Content-Type" type="string" required>
+  Must be application/json
+</ParamField>
 
-## Authentication
+## Body Parameters
 
-You need a JWT token from your business login:
+<ParamField body="network" type="string" required>
+  Blockchain network. Choose: base, solana, or ethereum
+</ParamField>
 
+<ParamField body="tokens" type="array" required>
+  Array of token objects to add
+</ParamField>
 
-Authorization: Bearer Authorization: Bearer {your_jwt_token}
+### Token Object Fields
 
+<ParamField body="tokens[].address" type="string" required>
+  Token contract address (e.g., 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913)
+</ParamField>
 
+<ParamField body="tokens[].symbol" type="string" required>
+  Token symbol (e.g., USDC, CUSTOM, MYTOKEN)
+</ParamField>
 
-## Request Body Example
+<ParamField body="tokens[].name" type="string" required>
+  Full token name (e.g., USD Coin, My Custom Token)
+</ParamField>
 
-```json
-{
-  "network": "base",
-  "tokens": [
-    {
-      "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
-      "symbol": "USDC", 
-      "name": "USD Coin",
-      "decimals": 6,
-      "feePercentage": 1.5
-    }
-  ]
-}
+<ParamField body="tokens[].decimals" type="number" required>
+  Token decimals. Usually 6 for USDC/USDT, 18 for most others
+</ParamField>
 
-Parameters
+<ParamField body="tokens[].feePercentage" type="number" required>
+  Your fee percentage. Example: 1.5 for 1.5%
+</ParamField>
 
-network: base, solana, or ethereum
-address: Token contract address
-symbol: Token symbol (USDC, CUSTOM, etc.)
-name: Full token name
-decimals: Token decimals (6 for USDC, 18 for most others)
-feePercentage: Your fee (1.5 = 1.5%)
+## Response
 
-Popular Token Addresses
-Base Network
+<ResponseField name="success" type="boolean">
+  Whether the operation was successful
+</ResponseField>
 
-USDC: 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
+<ResponseField name="message" type="string">
+  Success or error message
+</ResponseField>
 
-Solana Network
+<ResponseField name="data" type="object">
+  Contains details about the added tokens
+</ResponseField>
 
-USDC: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+## Popular Token Addresses
 
-Ethereum Network
+**Base Network:**
+- USDC: `0x833589fcd6edb6e08f4c7c32d4f71b54bda02913`
 
-USDC: 0xA0b86a33E441E8F4c6ba5D8A1B56E49A3B7d8F2
-USDT: 0xdAC17F958D2ee523a2206206994597C13D831ec7
+**Solana Network:**
+- USDC: `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v`
 
-Response
+**Ethereum Network:**
+- USDC: `0xA0b86a33E441E8F4c6ba5D8A1B56E49A3B7d8F2`
+- USDT: `0xdAC17F958D2ee523a2206206994597C13D831ec7`
 
-{
-  "success": true,
-  "message": "Custom tokens added successfully"
-}
+## Next Steps
 
-Next: Enable Offramp
-After adding tokens, customers can convert them to NGN using your offramp service.
-
+After adding tokens, set up offramp orders so customers can convert tokens to NGN.
 
 
