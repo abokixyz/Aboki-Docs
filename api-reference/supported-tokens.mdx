@@ -1,0 +1,135 @@
+---
+title: "Supported Tokens"
+api: "GET https://aboki-b2b-eobk.onrender.com/api/v1/business-onramp/supported-tokens"
+description: "Get all tokens supported for onramp across all networks with validation status"
+---
+
+# Supported Tokens
+
+Retrieve all tokens supported by your business for onramp orders with current fees, validation status, and network-specific information.
+
+<ParamField header="Authorization" type="string" required>
+  Your Public Key from the dashboard. Format: Bearer pk_live_your_key_here
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="validateAll" type="boolean">
+  Perform real-time validation on all tokens across networks (default: false)
+</ParamField>
+
+<ParamField query="network" type="string">
+  Filter tokens by specific network: base, solana, ethereum, or all (default: all)
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="supportedTokens" type="object">
+    <ResponseField name="base" type="array">
+      Base network tokens with validation status
+    </ResponseField>
+    <ResponseField name="solana" type="array">
+      Solana network tokens with Jupiter support
+    </ResponseField>
+    <ResponseField name="ethereum" type="array">
+      Ethereum network tokens with API support
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="statistics" type="object">
+    <ResponseField name="totalTokens" type="number">
+      Total number of supported tokens
+    </ResponseField>
+    <ResponseField name="networks" type="array">
+      List of supported networks
+    </ResponseField>
+    <ResponseField name="baseTokens" type="number">
+      Number of Base network tokens
+    </ResponseField>
+    <ResponseField name="solanaTokens" type="number">
+      Number of Solana network tokens
+    </ResponseField>
+    <ResponseField name="ethereumTokens" type="number">
+      Number of Ethereum network tokens
+    </ResponseField>
+    <ResponseField name="fullySupported" type="number">
+      Tokens ready for onramp orders
+    </ResponseField>
+  </ResponseField>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "supportedTokens": {
+      "base": [
+        {
+          "symbol": "ENB",
+          "name": "ENB Token",
+          "contractAddress": "0x...",
+          "decimals": 18,
+          "feePercentage": 1.5,
+          "network": "base",
+          "supportLevel": "fully_supported",
+          "validation": {
+            "contractSupported": true,
+            "hasLiquidity": true,
+            "canProcessOnramp": true
+          }
+        },
+        {
+          "symbol": "USDC",
+          "name": "USD Coin",
+          "contractAddress": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "decimals": 6,
+          "feePercentage": 0.5,
+          "network": "base",
+          "supportLevel": "fully_supported",
+          "validation": {
+            "contractSupported": true,
+            "hasLiquidity": true,
+            "canProcessOnramp": true
+          }
+        }
+      ],
+      "solana": [
+        {
+          "symbol": "SOL",
+          "name": "Solana",
+          "contractAddress": "11111111111111111111111111111112",
+          "decimals": 9,
+          "network": "solana",
+          "validation": {
+            "jupiterSupported": true,
+            "hasLiquidity": true,
+            "canProcessOnramp": true
+          }
+        }
+      ],
+      "ethereum": [
+        {
+          "symbol": "ETH",
+          "name": "Ethereum",
+          "decimals": 18,
+          "network": "ethereum",
+          "supportLevel": "fully_supported"
+        }
+      ]
+    },
+    "statistics": {
+      "totalTokens": 12,
+      "networks": ["base", "solana", "ethereum"],
+      "baseTokens": 8,
+      "solanaTokens": 3,
+      "ethereumTokens": 1,
+      "fullySupported": 10
+    }
+  }
+}
