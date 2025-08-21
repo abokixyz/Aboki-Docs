@@ -1,25 +1,129 @@
 ---
 title: "Introduction"
-description: "Aboki is the fastest way to turn crypto into real money — and real money into crypto — right from your wallet or bank account."
+description: "Learn how to seamlessly integrate Aboki APIs into your application for instant crypto ↔ NGN conversion"
 ---
 
+# API Documentation
+
+Learn how to seamlessly integrate our APIs into your application.
+
+<Note>
+**Before you begin!**
+You should create a free Aboki business account that you can test the API against. We will provide you with API keys that you can use to make API calls.
+</Note>
+
+<Card title="Postman Collection" icon="rocket" href="https://postman.com/aboki">
+  View the Postman Collection
+</Card>
+
+**Aboki is the fastest way to turn crypto into real money — and real money into crypto — right from your wallet or bank account.**
 
 No middlemen. No Telegram. No waiting.
 
 ![Aboki Interface](aboki-interface.png)
 
-
 Aboki lets anyone swap between stablecoins like USDC and local currency (like the Nigerian Naira) in seconds. It's simple, instant, and built for everyday use — from buying breakfast to funding your wallet or even paying for a car.
 
-## Why Aboki?
+## Sample Requests
 
-Most people just want crypto to *work* — no jargon, no delay, no drama. That's why we built Aboki.
+We provide sample API calls next to each method **using cURL**. All you need to do is insert your specific parameters, and you can test the calls from the command line.
 
--  **Instant Swaps** Convert fiat to crypto or crypto to cash in seconds
--  **Everyday Payments** Use crypto to buy food, pay for services, or send money  
--  **Direct, Secure, and Reliable** No Telegram deals. No risky P2P chats
--  **Built for Real People in Real Places** Especially in markets like Nigeria
+### Quick Example - Get Offramp Quote
 
-## For Developers
+Make a `POST` request to:
 
-Aboki gives you a seamless fiat ↔ stablecoin swap layer that you can embed directly into your app, wallet, or platform — so your users can cash in, cash out, or pay out in local currency instantly.
+`https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/quote`
+
+with headers:
+
+- `Authorization: Bearer pk_live_your_key_here`  
+- `Content-Type: application/json`  
+
+and body:
+
+`{ "tokenAmount": 100, "targetToken": "USDC", "targetNetwork": "base" }`
+
+## API Overview
+
+The Aboki API gives you access to pretty much all the features you can use on our dashboard and lets you extend them for use in your application. It strives to be RESTful and is organized around the main resources you would be interacting with.
+
+### Main Features
+
+- **Offramp Services**: Convert crypto tokens to Nigerian Naira instantly
+- **Onramp Services**: Convert Nigerian Naira to crypto tokens seamlessly  
+- **Multi-Network Support**: Base, Solana, and Ethereum networks
+- **Real-time Pricing**: Live exchange rates and liquidity validation
+- **Bank Integration**: Direct Nigerian bank account verification and payouts
+- **Webhook Notifications**: Real-time order status updates
+
+## Getting Started
+
+### Step 1: Get Your API Keys
+
+1. **Create Account**: Visit [app.aboki.xyz/dashboard](https://app.aboki.xyz/dashboard)
+2. **Complete Verification**: Complete business registration and admin approval
+3. **Generate Keys**: Get your Public Key (`pk_live_...`) from the dashboard
+
+### Step 2: Make Your First Request
+
+Test authentication with a simple quote request:  
+
+Endpoint:  
+`https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/quote`
+
+Headers:  
+- `Authorization: Bearer pk_live_your_key_here`  
+- `Content-Type: application/json`  
+
+Body:  
+`{ "tokenAmount": 10, "targetToken": "USDC", "targetNetwork": "base" }`
+
+### Step 3: Integration Patterns
+
+**Offramp Flow (Crypto → NGN):**
+1. [Get Quote](/api-reference/offramp-quote) - Show customer NGN amount
+2. [Verify Bank Account](/api-reference/verify-account) - Validate customer bank
+3. [Create Order](/api-reference/create-offramp) - Generate deposit wallet
+4. Customer sends crypto, receives NGN automatically
+
+**Onramp Flow (NGN → Crypto):**
+1. [Get Quote](/api-reference/onramp-quote) - Show customer token amount
+2. [Create Order](/api-reference/create-onramp) - Generate payment instructions
+3. Customer pays NGN, receives crypto automatically
+
+## Authentication
+
+All API requests require authentication using your **Public Key**:
+
+`Authorization: Bearer pk_live_your_public_key_here`
+
+See [Authentication Guide](/authentication) for complete setup instructions.
+
+## Response Format
+
+All API responses follow this consistent structure:
+
+`{ "success": true, "message": "Operation completed successfully", "data": { /* Response data here */ } }`
+
+## Error Handling
+
+Failed requests return detailed error information:
+
+`{ "success": false, "message": "Detailed error description", "code": "ERROR_CODE", "errors": { "field": "Specific field error" } }`
+
+## Rate Limits
+
+- **Production**: 1000 requests per minute
+- **Sandbox**: 100 requests per minute
+- Rate limit headers included in all responses
+
+## Support
+
+- **Documentation**: Complete API reference and guides
+- **Dashboard**: [app.aboki.xyz/dashboard](https://app.aboki.xyz/dashboard)
+- **Support**: Contact through dashboard or email
+- **Status**: Real-time system status and uptime
+
+---
+
+Ready to integrate? Start with [Authentication](/authentication) or jump to [Offramp Quote](/api-reference/offramp-quote) to begin testing.
