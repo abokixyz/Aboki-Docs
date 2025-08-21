@@ -1,0 +1,121 @@
+---
+title: "Create Onramp Order"
+api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business-onramp/create"
+description: "Create onramp order for NGN to crypto conversion across all networks"
+---
+
+# Create Onramp Order
+
+Create a new onramp order for converting NGN to crypto tokens. Works across Base, Solana, and Ethereum networks with automatic validation and transaction preparation.
+
+<ParamField header="Authorization" type="string" required>
+  Your Public Key from the dashboard. Format: Bearer pk_live_your_key_here
+</ParamField>
+
+<ParamField header="Content-Type" type="string" required>
+  Always use: application/json
+</ParamField>
+
+## Body Parameters
+
+### Customer Information
+
+<ParamField body="customerEmail" type="string" required>
+  Customer's email address (e.g., customer@example.com)
+</ParamField>
+
+<ParamField body="customerName" type="string" required>
+  Customer's full name (e.g., John Doe)
+</ParamField>
+
+<ParamField body="customerPhone" type="string" required>
+  Customer's phone number with country code (e.g., +234-123-456-7890)
+</ParamField>
+
+### Transaction Details
+
+<ParamField body="amount" type="number" required>
+  NGN amount customer wants to spend (e.g., 50000 for ₦50,000)
+</ParamField>
+
+<ParamField body="targetToken" type="string" required>
+  Token symbol customer wants to receive (e.g., ENB, USDC, ETH, SOL)
+</ParamField>
+
+<ParamField body="targetNetwork" type="string" required>
+  Blockchain network: base, solana, or ethereum
+</ParamField>
+
+<ParamField body="customerWallet" type="string" required>
+  Customer's wallet address to receive tokens (e.g., 0x742d35Cc6634C0532925a3b8D1D8ce28D2e67F5c)
+</ParamField>
+
+### Optional Parameters
+
+<ParamField body="redirectUrl" type="string">
+  URL to redirect customer after payment completion
+</ParamField>
+
+<ParamField body="webhookUrl" type="string">
+  URL to receive order status updates
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  Additional data for your reference (userId, source, etc.)
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the order was created successfully
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="orderId" type="string">
+    Unique order identifier (e.g., OR_1234567890_ABCDEF)
+  </ResponseField>
+  <ResponseField name="targetNetwork" type="string">
+    Blockchain network for the transaction
+  </ResponseField>
+  <ResponseField name="tokenInfo" type="object">
+    Information about the target token
+  </ResponseField>
+  <ResponseField name="smartContractData" type="object">
+    Base network smart contract information (if applicable)
+  </ResponseField>
+  <ResponseField name="jupiterData" type="object">
+    Solana Jupiter DEX information (if applicable)
+  </ResponseField>
+  <ResponseField name="paymentInstructions" type="object">
+    Instructions for customer NGN payment
+  </ResponseField>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "message": "Onramp order created successfully for ENB on base",
+  "data": {
+    "orderId": "OR_1234567890_ABCDEF",
+    "targetNetwork": "base",
+    "tokenInfo": {
+      "symbol": "ENB",
+      "network": "base",
+      "finalAmount": 123.74
+    },
+    "smartContractData": {
+      "liquidityAdequate": true,
+      "transactionPreparation": {
+        "success": true,
+        "transactionId": "tx_abc123"
+      }
+    },
+    "paymentInstructions": {
+      "amount": 50000,
+      "accountDetails": "Contact support for payment details",
+      "reference": "OR_1234567890_ABCDEF"
+    }
+  }
+}
