@@ -1,14 +1,10 @@
 {
   "name": "Aboki",
-  "logo": {
-    "dark": "/abokinalol.svg",
-    "light": "/abokinalol.svg"
-  },
+  "logo": "/abokinalol.svg",
   "favicon": "/abokinalol.svg",
-  //  "logo": "/logo.svg",
   "colors": {
     "primary": "#9333ea",
-    "light": "#3b82f6",
+    "light": "#3b82f6", 
     "dark": "#9333ea"
   },
   "topbarCtaButton": {
@@ -18,7 +14,11 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "authentication", "for-users"]
+      "pages": [
+        "introduction",
+        "authentication", 
+        "for-users"
+      ]
     },
     {
       "group": "Essentials",
@@ -32,7 +32,7 @@
       "pages": [
         "api-reference/offramp-quote",
         "api-reference/verify-account",
-        "api-reference/create-offramp",
+        "api-reference/create-offramp", 
         "api-reference/get-offramp-order",
         "api-reference/list-offramp-orders"
       ]
