@@ -1,0 +1,118 @@
+---
+title: "List Offramp Orders"
+api: "GET https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/orders"
+description: "Get all offramp orders with filtering and pagination"
+---
+
+# List Offramp Orders
+
+Retrieve all offramp orders for your business with optional filtering by status, customer, token, or network.
+
+<ParamField header="Authorization" type="string" required>
+  Your Public Key from the dashboard. Format: Bearer pk_live_your_key_here
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="status" type="string">
+  Filter by order status: pending_deposit, processing, completed, failed, expired
+</ParamField>
+
+<ParamField query="customerEmail" type="string">
+  Filter by customer email address
+</ParamField>
+
+<ParamField query="targetToken" type="string">
+  Filter by token symbol (USDC, USDT, ETH, SOL)
+</ParamField>
+
+<ParamField query="targetNetwork" type="string">
+  Filter by blockchain network (base, ethereum, solana)
+</ParamField>
+
+<ParamField query="page" type="integer">
+  Page number for pagination (default: 1, minimum: 1)
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Number of orders per page (default: 20, minimum: 1, maximum: 100)
+</ParamField>
+
+<ParamField query="sortBy" type="string">
+  Sort field (default: createdAt)
+</ParamField>
+
+<ParamField query="sortOrder" type="string">
+  Sort order: asc or desc (default: desc)
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="orders" type="array">
+    Array of order objects with same structure as Get Order endpoint
+  </ResponseField>
+  <ResponseField name="pagination" type="object">
+    <ResponseField name="page" type="number">
+      Current page number
+    </ResponseField>
+    <ResponseField name="limit" type="number">
+      Orders per page
+    </ResponseField>
+    <ResponseField name="total" type="number">
+      Total number of orders
+    </ResponseField>
+  </ResponseField>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "orders": [
+      {
+        "orderId": "OFF_1703234567_ABC123DEF",
+        "status": "completed",
+        "tokenAmount": 100,
+        "targetToken": "USDC",
+        "targetNetwork": "base",
+        "netNgnAmount": 162525,
+        "customerEmail": "customer@example.com",
+        "createdAt": "2025-08-19T22:32:55.036Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 150
+    }
+  }
+}
+
+
+
+
+
+
+
+ #Common Filters
+Recent Orders:
+
+GET /orders?sortBy=createdAt&sortOrder=desc&limit=10
+
+
+Failed Orders:
+
+GET /orders?status=failed
+
+GET /orders?targetToken=USDC&targetNetwork=base
+
+
+
+
