@@ -9,8 +9,9 @@ description: "Get real-time quote for converting tokens to Nigerian Naira"
 Calculate how much NGN your customer will receive for selling crypto tokens. Shows exact amounts including fees and exchange rates.
 
 <ParamField header="Authorization" type="string" required>
-  Bearer token from your business login
+  Your Public Key from the dashboard. Format: Bearer pk_live_your_key_here
 </ParamField>
+
 
 <ParamField header="Content-Type" type="string" required>
   Must be application/json
@@ -84,7 +85,3 @@ Calculate how much NGN your customer will receive for selling crypto tokens. Sho
 }
 
 
-Next Steps
-
-Optional: Verify customer bank account
-Create offramp order to generate deposit wallet
