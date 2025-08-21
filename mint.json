@@ -1,6 +1,10 @@
 {
   "name": "Aboki",
-  "favicon": "./abokinalol.svg",
+  "logo": {
+    "dark": "/abokinalol.svg",
+    "light": "/abokinalol.svg"
+  },
+  "favicon": "/abokinalol.svg",
   "colors": {
     "primary": "#9333ea",
     "light": "#3b82f6",
@@ -8,12 +12,28 @@
   },
   "topbarCtaButton": {
     "name": "Try Aboki",
-    "url": "http://www.aboki.xyz"
+    "url": "https://www.aboki.xyz"
   },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@aboki.xyz"
+    }
+  ],
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "authentication", "for-users"]
+      "pages": [
+        "introduction", 
+        "authentication", 
+        "for-users"
+      ]
     },
     {
       "group": "Essentials",
@@ -42,5 +62,16 @@
         "api-reference/supported-tokens"
       ]
     }
-  ]
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/abokiapp",
+    "github": "https://github.com/abokiapp",
+    "linkedin": "https://www.linkedin.com/company/abokiapp"
+  },
+  "seo": {
+    "indexHiddenPages": true
+  },
+  "integrations": {
+    "intercom": "your-intercom-app-id"
+  }
 }
