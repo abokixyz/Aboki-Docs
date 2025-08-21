@@ -1,0 +1,101 @@
+---
+title: "Get Offramp Order"
+api: "GET https://aboki-b2b-eobk.onrender.com/api/v1/business-offramp/orders/{orderId}"
+description: "Get details of a specific offramp order by ID"
+---
+
+# Get Offramp Order
+
+Retrieve complete details of a specific offramp order including current status, transaction information, and bank details.
+
+<ParamField header="Authorization" type="string" required>
+  Your Public Key from the dashboard. Format: Bearer pk_live_your_key_here
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="orderId" type="string" required>
+  Order ID or business order reference (e.g., OFF_1703234567_ABC123DEF)
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="orderId" type="string">
+    Unique order identifier
+  </ResponseField>
+  <ResponseField name="status" type="string">
+    Current order status (pending_deposit, processing, completed, failed)
+  </ResponseField>
+  <ResponseField name="tokenAmount" type="number">
+    Amount of tokens being converted
+  </ResponseField>
+  <ResponseField name="targetToken" type="string">
+    Token being converted (USDC, USDT, ETH, SOL)
+  </ResponseField>
+  <ResponseField name="targetNetwork" type="string">
+    Blockchain network (base, ethereum, solana)
+  </ResponseField>
+  <ResponseField name="netNgnAmount" type="number">
+    NGN amount customer receives
+  </ResponseField>
+  <ResponseField name="depositInstructions" type="object">
+    <ResponseField name="walletAddress" type="string">
+      Generated wallet address for deposits
+    </ResponseField>
+    <ResponseField name="expiresAt" type="string">
+      Deposit deadline
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="bankDetails" type="object">
+    <ResponseField name="accountNumber" type="string">
+      Customer's bank account number
+    </ResponseField>
+    <ResponseField name="accountName" type="string">
+      Account holder name
+    </ResponseField>
+    <ResponseField name="bankName" type="string">
+      Bank name
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="createdAt" type="string">
+    Order creation timestamp
+  </ResponseField>
+</ResponseField>
+
+## Order Statuses
+
+- **pending_deposit**: Waiting for customer to send tokens
+- **processing**: Tokens received, processing NGN payout
+- **completed**: NGN successfully sent to customer's bank
+- **failed**: Transaction failed or expired
+- **expired**: Customer didn't deposit within 24 hours
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "orderId": "OFF_1703234567_ABC123DEF",
+    "status": "completed",
+    "tokenAmount": 100,
+    "targetToken": "USDC",
+    "targetNetwork": "base",
+    "netNgnAmount": 162525,
+    "depositInstructions": {
+      "walletAddress": "0x742d35Cc6669C87532DD123F5b8c6B3e8e7c5B2A",
+      "expiresAt": "2025-08-20T22:32:55.036Z"
+    },
+    "bankDetails": {
+      "accountNumber": "1234567890",
+      "accountName": "JOHN DOE",
+      "bankName": "Guaranty Trust Bank"
+    },
+    "createdAt": "2025-08-19T22:32:55.036Z"
+  }
+}
