@@ -16,6 +16,13 @@
       "pages": ["introduction", "authentication", "for-users"]
     },
     {
+      "group": "Essentials",
+      "pages": [
+        "api-reference/webhooks",
+        "api-reference/add-tokens"
+      ]
+    },
+    {
       "group": "Offramp API (Crypto → NGN)",
       "pages": [
         "api-reference/offramp-quote",
@@ -33,13 +40,6 @@
         "api-reference/get-onramp-order",
         "api-reference/list-onramp-orders",
         "api-reference/supported-tokens"
-      ]
-    },
-    {
-      "group": "Configuration",
-      "pages": [
-        "api-reference/add-tokens",
-        "api-reference/webhooks"
       ]
     }
   ]
