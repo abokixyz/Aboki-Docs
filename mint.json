@@ -1,6 +1,6 @@
 {
   "name": "Aboki",
-  "favicon": "/abokinalol.svg",
+  "favicon": "./abokinalol.svg",
   "colors": {
     "primary": "#9333ea",
     "light": "#3b82f6",
