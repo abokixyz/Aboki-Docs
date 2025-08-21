@@ -16,13 +16,30 @@
       "pages": ["introduction", "for-users"]
     },
     {
-      "group": "API Reference",
+      "group": "Offramp API (Crypto → NGN)",
       "pages": [
-        "api-reference/authentication",
-        "api-reference/add-tokens",
         "api-reference/offramp-quote",
         "api-reference/verify-account",
-        "api-reference/create-offramp"
+        "api-reference/create-offramp",
+        "api-reference/get-offramp-order",
+        "api-reference/list-offramp-orders"
+      ]
+    },
+    {
+      "group": "Onramp API (NGN → Crypto)",
+      "pages": [
+        "api-reference/onramp-quote",
+        "api-reference/create-onramp",
+        "api-reference/get-onramp-order",
+        "api-reference/list-onramp-orders",
+        "api-reference/supported-tokens"
+      ]
+    },
+    {
+      "group": "Setup",
+      "pages": [
+        "api-reference/authentication",
+        "api-reference/add-tokens"
       ]
     }
   ]
