@@ -1,0 +1,110 @@
+---
+title: "Get Onramp Quote"
+api: "POST https://aboki-b2b-eobk.onrender.com/api/v1/business-onramp/quote"
+description: "Get price quote for converting NGN to crypto tokens"
+---
+
+# Get Onramp Quote
+
+Calculate how much crypto tokens your customer will receive for a specific NGN amount. Works across Base, Solana, and Ethereum networks with real-time pricing.
+
+<ParamField header="Authorization" type="string" required>
+  Your Public Key from the dashboard. Format: Bearer pk_live_your_key_here
+</ParamField>
+
+<ParamField header="Content-Type" type="string" required>
+  Always use: application/json
+</ParamField>
+
+## Body Parameters
+
+<ParamField body="amount" type="number" required>
+  NGN amount customer wants to spend (e.g., 50000 for ₦50,000)
+</ParamField>
+
+<ParamField body="targetToken" type="string" required>
+  Token symbol customer wants to receive (e.g., USDC, ENB, ETH, SOL)
+</ParamField>
+
+<ParamField body="targetNetwork" type="string" required>
+  Blockchain network: base, ethereum, or solana
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the quote was generated successfully
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="amount" type="number">
+    NGN amount being converted
+  </ResponseField>
+  <ResponseField name="targetToken" type="string">
+    Token customer will receive
+  </ResponseField>
+  <ResponseField name="targetNetwork" type="string">
+    Blockchain network for the token
+  </ResponseField>
+  <ResponseField name="exchangeRate" type="number">
+    Current USD to NGN exchange rate
+  </ResponseField>
+  <ResponseField name="finalTokenAmount" type="number">
+    Exact amount of tokens customer will receive
+  </ResponseField>
+  <ResponseField name="smartContractData" type="object">
+    <ResponseField name="usdcValue" type="number">
+      USD value for Base network calculations
+    </ResponseField>
+    <ResponseField name="bestRoute" type="string">
+      Optimal trading route on Base DEX
+    </ResponseField>
+    <ResponseField name="liquidityAdequate" type="boolean">
+      Whether there's sufficient liquidity
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="jupiterData" type="object">
+    <ResponseField name="priceImpact" type="number">
+      Price impact percentage for Solana trades
+    </ResponseField>
+    <ResponseField name="estimatedConfirmation" type="string">
+      Expected confirmation time
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="pricingInfo" type="object">
+    <ResponseField name="currentUsdcRate" type="string">
+      Current USDC to NGN rate
+    </ResponseField>
+    <ResponseField name="source" type="string">
+      Pricing data source
+    </ResponseField>
+  </ResponseField>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "amount": 50000,
+    "targetToken": "ENB",
+    "targetNetwork": "base",
+    "exchangeRate": 398.01,
+    "finalTokenAmount": 123.74,
+    "smartContractData": {
+      "usdcValue": 30.25,
+      "bestRoute": "V3 Direct (0.3% fee)",
+      "liquidityAdequate": true
+    },
+    "pricingInfo": {
+      "currentUsdcRate": "1 USDC = ₦1,720",
+      "source": "smart_contract_dex_with_current_rates"
+    }
+  }
+}
+
+
+
+
+
