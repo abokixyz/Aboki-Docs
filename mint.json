@@ -14,26 +14,10 @@
     "name": "Try Aboki",
     "url": "https://www.aboki.xyz"
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:support@aboki.xyz"
-    }
-  ],
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "navigation": [
     {
       "group": "Get Started",
-      "pages": [
-        "introduction", 
-        "authentication", 
-        "for-users"
-      ]
+      "pages": ["introduction", "authentication", "for-users"]
     },
     {
       "group": "Essentials",
@@ -62,16 +46,5 @@
         "api-reference/supported-tokens"
       ]
     }
-  ],
-  "footerSocials": {
-    "twitter": "https://twitter.com/abokiapp",
-    "github": "https://github.com/abokiapp",
-    "linkedin": "https://www.linkedin.com/company/abokiapp"
-  },
-  "seo": {
-    "indexHiddenPages": true
-  },
-  "integrations": {
-    "intercom": "your-intercom-app-id"
-  }
+  ]
 }
