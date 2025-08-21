@@ -39,7 +39,8 @@
       "group": "Setup",
       "pages": [
         "api-reference/authentication",
-        "api-reference/add-tokens"
+        "api-reference/add-tokens",
+        "api-reference/webhooks"
       ]
     }
   ]
