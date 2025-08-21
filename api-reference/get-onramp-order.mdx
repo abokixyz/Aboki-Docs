@@ -1,0 +1,103 @@
+---
+title: "Get Onramp Order"
+api: "GET https://aboki-b2b-eobk.onrender.com/api/v1/business-onramp/orders/{orderId}"
+description: "Get details of a specific onramp order by ID"
+---
+
+# Get Onramp Order
+
+Retrieve complete details of a specific onramp order including current status, transaction information, and network-specific data.
+
+<ParamField header="Authorization" type="string" required>
+  Your Public Key from the dashboard. Format: Bearer pk_live_your_key_here
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="orderId" type="string" required>
+  Onramp order ID or business order reference (e.g., OR_1234567890_ABCDEF)
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <ResponseField name="orderId" type="string">
+    Unique order identifier
+  </ResponseField>
+  <ResponseField name="targetNetwork" type="string">
+    Blockchain network (base, solana, ethereum)
+  </ResponseField>
+  <ResponseField name="status" type="string">
+    Current order status
+  </ResponseField>
+  <ResponseField name="amount" type="number">
+    NGN amount being converted
+  </ResponseField>
+  <ResponseField name="targetToken" type="string">
+    Token customer will receive
+  </ResponseField>
+  <ResponseField name="customerWallet" type="string">
+    Customer's wallet address
+  </ResponseField>
+  <ResponseField name="validation" type="object">
+    <ResponseField name="tokenValidated" type="boolean">
+      Whether token is supported
+    </ResponseField>
+    <ResponseField name="contractSupported" type="boolean">
+      Smart contract validation status
+    </ResponseField>
+    <ResponseField name="jupiterSupported" type="boolean">
+      Jupiter DEX support status
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="pricingInfo" type="object">
+    <ResponseField name="source" type="string">
+      Pricing data source
+    </ResponseField>
+    <ResponseField name="currentUsdcRate" type="number">
+      Current USDC to NGN rate
+    </ResponseField>
+  </ResponseField>
+  <ResponseField name="smartContractData" type="object">
+    Base network specific information
+  </ResponseField>
+  <ResponseField name="jupiterData" type="object">
+    Solana network specific information
+  </ResponseField>
+  <ResponseField name="createdAt" type="string">
+    Order creation timestamp
+  </ResponseField>
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "orderId": "OR_1234567890_ABCDEF",
+    "targetNetwork": "base",
+    "status": "completed",
+    "amount": 50000,
+    "targetToken": "ENB",
+    "customerWallet": "0x742d35Cc6634C0532925a3b8D1D8ce28D2e67F5c",
+    "validation": {
+      "tokenValidated": true,
+      "contractSupported": true,
+      "jupiterSupported": true
+    },
+    "pricingInfo": {
+      "source": "smart_contract_dex_with_current_rates",
+      "currentUsdcRate": 1720
+    },
+    "smartContractData": {
+      "liquidityAdequate": true,
+      "bestRoute": "V3 Direct (0.3% fee)"
+    },
+    "createdAt": "2025-08-21T02:18:40.747Z"
+  }
+}
