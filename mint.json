@@ -1,6 +1,50 @@
 {
   "name": "Aboki",
-  "logo": "/abokinalol.svg",
+  "logo": {
+    "dark": "/abokinalol.svg",
+    "light": "/abokinalol.svg"
+  },
   "favicon": "/abokinalol.svg",
-  // ... rest of config
+  "colors": {
+    "primary": "#9333ea",
+    "light": "#3b82f6",
+    "dark": "#9333ea"
+  },
+  "topbarCtaButton": {
+    "name": "Try Aboki",
+    "url": "https://www.aboki.xyz"
+  },
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": ["introduction", "authentication", "for-users"]
+    },
+    {
+      "group": "Essentials",
+      "pages": [
+        "api-reference/webhooks",
+        "api-reference/add-tokens"
+      ]
+    },
+    {
+      "group": "Offramp API (Crypto → NGN)",
+      "pages": [
+        "api-reference/offramp-quote",
+        "api-reference/verify-account",
+        "api-reference/create-offramp",
+        "api-reference/get-offramp-order",
+        "api-reference/list-offramp-orders"
+      ]
+    },
+    {
+      "group": "Onramp API (NGN → Crypto)",
+      "pages": [
+        "api-reference/onramp-quote",
+        "api-reference/create-onramp",
+        "api-reference/get-onramp-order",
+        "api-reference/list-onramp-orders",
+        "api-reference/supported-tokens"
+      ]
+    }
+  ]
 }
