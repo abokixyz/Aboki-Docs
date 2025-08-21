@@ -13,7 +13,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "for-users"]
+      "pages": ["introduction", "authentication", "for-users"]
     },
     {
       "group": "Offramp API (Crypto → NGN)",
@@ -36,9 +36,8 @@
       ]
     },
     {
-      "group": "Setup",
+      "group": "Configuration",
       "pages": [
-        "api-reference/authentication",
         "api-reference/add-tokens",
         "api-reference/webhooks"
       ]
