@@ -25,7 +25,6 @@
     {
       "group": "Essentials",
       "pages": [
-        "api-reference/webhooks",
         "api-reference/add-tokens"
       ]
     },
