@@ -11,6 +11,9 @@
     "name": "Try Aboki",
     "url": "https://www.aboki.xyz"
   },
+  "styles": {
+    "css": ["/custom.css"]
+  },
   "navigation": [
     {
       "group": "Get Started",
