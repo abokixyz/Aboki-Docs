@@ -1,0 +1,23 @@
+/* Full-width banner image styling for introduction page */
+.markdown img[alt="Aboki Interface"] {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: -2rem;
+  margin-bottom: 2rem;
+  display: block;
+  object-fit: cover;
+}
+
+/* Alternative: Style all images at the start of content */
+.markdown > p:first-of-type img {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: -2rem;
+  margin-bottom: 2rem;
+  display: block;
+  object-fit: cover;
+}
