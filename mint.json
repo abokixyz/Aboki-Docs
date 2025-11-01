@@ -19,7 +19,6 @@
       "group": "Get Started",
       "pages": [
         "introduction",
-        "authentication", 
         "for-users"
       ]
     },
